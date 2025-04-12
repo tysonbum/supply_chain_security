@@ -19,11 +19,13 @@ jobs:
     - name: Install Syft
       run: |
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
     - name: Generate SBOM                      #Modified
       run: |
         syft docker.io/kodekloud/webapp-color:latest -o spdx-json > spdx.json  
+
     - name: Upload SBOM Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: sbom-report
         path: sbom.xml

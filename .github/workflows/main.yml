@@ -19,13 +19,11 @@ jobs:
     - name: Install Syft
       run: |
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
-
-    - name: Generate SBOM
+    - name: Generate SBOM                      #Modified
       run: |
-        syft docker.io/kodekloud/webapp-color:latest -o spdx-xml > sbom.xml  # 포맷을 spdx-xml로 변경, 파일 이름도 sbom.xml로 맞춤
-
+        syft docker.io/kodekloud/webapp-color:latest -o spdx-json > spdx.json  
     - name: Upload SBOM Artifact
       uses: actions/upload-artifact@v3
       with:
         name: sbom-report
-        path: sbom.xml  # 이제 sbom.xml 파일이 생성됐으니 이 경로로 업로드 가능
+        path: sbom.xml
